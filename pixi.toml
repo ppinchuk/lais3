@@ -1,0 +1,12 @@
+[project]
+authors = ["ppinchuk <pinchukpaul@gmail.com>"]
+channels = ["conda-forge"]
+description = "Add a short description here"
+name = "lais3"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+rust = ">=1.83.0,<1.84"
