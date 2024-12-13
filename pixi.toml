@@ -10,3 +10,7 @@ version = "0.1.0"
 
 [dependencies]
 rust = ">=1.83.0,<1.84"
+python = ">=3.13.1,<3.14"
+
+[pypi-dependencies]
+luxai-s3 = { path = "./Lux-Design-S3/src", editable = true }
