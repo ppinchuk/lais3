@@ -28,6 +28,10 @@ def enqueue_output(out, queue):
     out.close()
 
 
+def empty_action(configuration):
+    return {"action": [[0, 0, 0] for __ in range(configuration["max_units"])]}
+
+
 def agent(observation, configuration):
     global agent_processes, t, q_stderr, q_stdout
 
@@ -38,7 +42,7 @@ def agent(observation, configuration):
         else:
             cwd = os.path.dirname(__file__)
         agent_process = Popen(
-            ["solution"], stdin=PIPE, stdout=PIPE, stderr=PIPE, cwd=cwd
+            ["./solution"], stdin=PIPE, stdout=PIPE, stderr=PIPE, cwd=cwd
         )
         agent_processes[observation.player] = agent_process
         atexit.register(cleanup_process)
@@ -47,6 +51,7 @@ def agent(observation, configuration):
         t = Thread(target=enqueue_output, args=(agent_process.stderr, q_stderr))
         t.daemon = True
         t.start()
+
     data = json.dumps(
         dict(
             obs=json.loads(observation.obs),
@@ -67,8 +72,10 @@ def agent(observation, configuration):
             break
         else:
             print(line.decode(), file=sys.stderr, end="")
-    if agent_res == "":
-        return {}
+
+    if agent_res.replace("\n", "") == "":
+        return empty_action(configuration["env_cfg"])
+
     return json.loads(agent_res)
 
 
@@ -102,6 +109,7 @@ if __name__ == "__main__":
         )
         if i == 0:
             configurations = obs["info"]["env_cfg"]
+            print(f"{empty_action(configurations)=}", file=sys.stderr)
         i += 1
         actions = agent(observation, dict(env_cfg=configurations))
         # send actions to engine
