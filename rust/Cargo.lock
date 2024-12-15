@@ -29,6 +29,7 @@ name = "lux-ai-simple-bot"
 version = "0.1.0"
 dependencies = [
  "lux-ai-api",
+ "serde_json",
 ]
 
 [[package]]

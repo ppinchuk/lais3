@@ -1,17 +1,17 @@
-use std::cell::Ref;
-use std::io;
+// use std::cell::Ref;
+// use std::io;
 
 
 fn main() {
 
-    let mut stdin = io::stdin();
-    let input = &mut String::new();
+    // let mut stdin = io::stdin();
+    // let input = &mut String::new();
+
+    let mut environment = lux_ai::Environment::new();
 
     // For every turn
     loop {
-        input.clear();
-        stdin.read_line(input);
-        eprintln!("RUST got input: {}", input);
+        environment.read_line();
         println!("");
     }
 
