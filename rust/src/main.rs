@@ -11,7 +11,7 @@ fn main() {
 
     // For every turn
     loop {
-        environment.read_line();
+        environment.read_env();
         println!("");
     }
 
